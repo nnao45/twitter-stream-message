@@ -82,7 +82,9 @@ pub struct User<'a> {
     ///
     /// [1]: http://tools.ietf.org/html/bcp47
     #[serde(borrow)]
-    pub lang: Cow<'a, str>,
+    #[serde(default)]
+    #[serde(deserialize_with = "::util::deserialize_opt_cow_str")]
+    pub lang: Option<Cow<'a, str>>,
 
     /// The number of public lists that this user is a member of.
     pub listed_count: u64,
